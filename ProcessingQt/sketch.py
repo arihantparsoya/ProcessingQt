@@ -35,8 +35,6 @@ class Canvas(QWidget):
 		self.timer.timeout.connect(self.update)
 		self.timer.start(1000/frameRate)
 
-		print(1000/frameRate)
-
 		self.elapsedTime = time.perf_counter() # used to calculate frameRate
 
 		self.initUI()
