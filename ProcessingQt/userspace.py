@@ -24,6 +24,12 @@ from . import processing
 
 import __main__
 import sys
+import builtins
+
+builtins.width = 360
+builtins.height = 360
+builtins.frameCount = -1
+builtins.frameRate = None
 
 def run(mode="P2D"):
 	if hasattr(__main__, 'setup'):
@@ -38,11 +44,17 @@ def run(mode="P2D"):
 
 	application = QApplication(sys.argv)
 	processing.canvas = Canvas(setup_method, draw_method)
-	processing.renderer = Renderer2D(processing.canvas)
+	
+	if mode == "P2D":
+		processing.renderer = Renderer2D(processing.canvas)
+	else:
+		print("Invalid Processing Mode")
 
 	sys.exit(application.exec_())
 
 def size(width, height):
+	builtins.width = width
+	builtins.height = height
 	processing.canvas.resize(width, height)
 
 def background(r, g, b):
