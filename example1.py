@@ -16,6 +16,6 @@ def draw():
 	triangle(200, 200, 250, 200, 250, 250)
 
 	#print(frameCount)
-	print(frameRate)
+	#print(frameRate)
 
 run()

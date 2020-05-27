@@ -18,13 +18,13 @@
 from . import processing
 
 def point(x, y):
-	processing.renderer.point(x, y, width, height)
+	processing.renderer.point(x, y)
 
 def line(x1, y1, x2, y2):
 	processing.renderer.line(x1, y1, x2, y2)
 
 def square(x, y, s):
-	processing.renderer.square(x, y, s) 
+	processing.renderer.square(x, y, s)
 
 def rect(x, y, width, height):
 	processing.renderer.rect(x, y, width, height)
