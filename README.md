@@ -4,7 +4,7 @@ A python library for Processing software.
 
 ### Requirements
 
-ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which is required to be installed separately. To install PyQt5, refer: https://doc.bccnsoft.com/docs/PyQt5/installation.html.
+ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which needs to be installed separately. To install PyQt5, refer: https://doc.bccnsoft.com/docs/PyQt5/installation.html.
 
 ## APIs
 
@@ -32,17 +32,17 @@ ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which is
 * strokeJoin()
 
 ### Curves
-* bezier()
-* curve()
+* [TODO]bezier()
+* [TODO]curve()
 
 ### Vertex
 * beginContour()
 * beginShape()
-* bezierVertex()
-* curveVertex()
+* [TODO]bezierVertex()
+* [TODO]curveVertex()
 * endContour()
 * endShape()
-* quadraticVertex()
+* [TODO]quadraticVertex()
 * vertex()
 
 ### Structure
@@ -64,5 +64,15 @@ ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which is
 * shearX()
 * shearY()
 * translate()
+
+### Constants
+* CLOSE
+* POINTS
+* LINES
+* TRIANGLES
+* TRIANGLE_FAN
+* TRIANGLE_STRIP
+* QUADS
+* QUAD_STRIP
 
 ### Events
