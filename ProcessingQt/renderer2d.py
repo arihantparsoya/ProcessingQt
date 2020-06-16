@@ -17,6 +17,7 @@
 
 from PyQt5.QtGui import QPainter, QColor, QPainterPath, QPen
 from PyQt5.QtCore import Qt
+from .constants import *
 
 class Renderer2D:
 	def __init__(self, context):
@@ -24,21 +25,18 @@ class Renderer2D:
 		self.qp = QPainter(self.ctx)
 
 		# Initiate Properties
-		#self.fill = QColor(255, 255, 255)
-		#self.stroke = QColor(0, 0, 0)
 		self.tint = QColor(0, 0, 0)
 		self.isFill = True
 		self.isStroke = True
 		self.isSmooth = True # Antialiasing
 
 		# Stroke Properties
-		#self.strokeWeight = 1
-		#self.strokeJoin = Qt.RoundJoin
-		#self.strokeCap = Qt.RoundCap
-
 		self.pen = QPen(QColor(0, 0, 0), 1, Qt.SolidLine, 
 			Qt.RoundCap, Qt.RoundJoin)
+		# Fill Properties
 		self.brush = QColor(255, 255, 255)
+
+		self.curveTightness = 0
 
 	def stroke(self, color):
 		self.pen.setColor(color)
@@ -142,6 +140,101 @@ class Renderer2D:
 		path.lineTo(x1, y1)
 
 		self.renderPath(path)
+
+	def endShape(self, mode, vertices, isCurve, isBezier, isQuadratic, isContour, shapeKind):
+		if len(vertices) == 0:
+			return 
+		closeShape = mode == CLOSE
+
+		if closeShape and not isContour:
+			vertices.append(vertices[0])
+
+		if isCurve and (shapeKind == POLYGON or shapeKind == None):
+			return 
+			b = []
+			s = 1 - self.curveTightness
+			path = QPainterPath()
+			path.moveTo(vertices[0][0], vertices[0][1])
+
+			for i in range(1, len(vertices)):
+				if i + 2 < len(vertices):
+					v = vertices[i]
+					b.append([v[0], v[1]])
+					b.append([
+						v[0] + (s * vertices[i + 1][0] - s * vertices[i - 1][0]) / 6,
+						v[1] + (s * vertices[i + 1][1] - s * vertices[i - 1][1]) / 6
+					])
+					b.append([
+						vertices[i + 1][0] +
+							(s * vertices[i][0] - s * vertices[i + 2][0]) / 6,
+						vertices[i + 1][1] + (s * vertices[i][1] - s * vertices[i + 2][1]) / 6
+					])
+					b.append([vertices[i + 1][0], vertices[i + 1][1]])
+					path.drawCubicBezier(
+						b[1][0],
+						b[1][1],
+						b[2][0],
+						b[2][1],
+						b[3][0],
+						b[3][1]
+					)
+
+			if closeShape:
+				path.lineTo(vertices[i + 1][0], vertices[i + 1][1])
+			self.renderPath(path)
+
+		elif isBezier and (shapeKind == POLYGON or shapeKind == None):
+			return
+		elif isQuadratic and (shapeKind == POLYGON or shapeKind == None):
+			return
+		else:
+			if shapeKind == POINTS:
+				for p in vertices:
+					self.point(p[0], p[1])
+			elif shapeKind == LINES:
+				for i in range(0, len(vertices), 2):
+					if i + 1 < len(vertices):
+						self.line(vertices[i][0], vertices[i][1], vertices[i + 1][0], vertices[i + 1][1])
+			elif shapeKind == TRIANGLES:
+				for i in range(0, len(vertices), 3):
+					if i + 2 < len(vertices):
+						self.triangle(vertices[i][0], vertices[i][1], 
+							vertices[i + 1][0], vertices[i + 1][1],
+							vertices[i + 2][0], vertices[i + 2][1])
+			elif shapeKind == TRIANGLE_STRIP:
+				for i in range(len(vertices)):
+					if i + 2 < len(vertices):
+						self.triangle(vertices[i][0], vertices[i][1], 
+							vertices[i + 1][0], vertices[i + 1][1],
+							vertices[i + 2][0], vertices[i + 2][1])
+			elif shapeKind == TRIANGLE_FAN:
+				for i in range(1, len(vertices)):
+					if i + 1 < len(vertices):
+						self.triangle(vertices[0][0], vertices[0][1], 
+								vertices[i][0], vertices[i][1],
+								vertices[i + 1][0], vertices[i + 1][1])
+			elif shapeKind == QUADS:
+				for i in range(0, len(vertices), 4):
+					if i + 3 < len(vertices):
+						self.quad(vertices[i][0], vertices[i][1], 
+								vertices[i + 1][0], vertices[i + 1][1],
+								vertices[i + 2][0], vertices[i + 2][1],
+								vertices[i + 3][0], vertices[i + 3][1])
+			elif shapeKind == QUAD_STRIP:
+				for i in range(0, len(vertices), 2):
+					if i + 3 < len(vertices):
+						self.quad(vertices[i][0], vertices[i][1], 
+								vertices[i + 1][0], vertices[i + 1][1],
+								vertices[i + 2][0], vertices[i + 2][1],
+								vertices[i + 3][0], vertices[i + 3][1])
+			else:
+				path = QPainterPath()
+				path.moveTo(vertices[0][0], vertices[0][1])
+				for p in vertices:
+					path.lineTo(p[0], p[1])
+				self.renderPath(path)
+
+		return
 
 	def renderPath(self, path):
 		self.qp.begin(self.ctx)

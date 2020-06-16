@@ -15,8 +15,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-from .userspace import *
-
-from .primitives import *
-from .vertex import *
-from .constants import *
+CLOSE = "CLOSE"
+POINTS = "POINTS"
+LINES = "LINES"
+TRIANGLES = "TRIANGLES"
+TRIANGLE_FAN = "TRIANGLE_FAN"
+TRIANGLE_STRIP = "TRIANGLE_STRIP"
+QUADS = "QUADS"
+QUAD_STRIP = "QUAD_STRIP"
+POLYGON = "POLYGON"

@@ -69,11 +69,18 @@ def strokeJoin(join):
 def strokeCap(cap):
 	processing.renderer.strokeCap(cap)
 
+def noStroke():
+	processing.renderer.stroke(QColor(0, 0, 0, 0))
+
 def stroke(r, g, b):
 	processing.renderer.stroke(QColor(r, b, g))
+
+def noFill():
+	processing.renderer.fill(QColor(0, 0, 0, 0))
 
 def fill(r, g, b):
 	processing.renderer.fill(QColor(r, b, g))
 
 def background(r, g, b):
 	processing.renderer.background(QColor(r, b, g))
+

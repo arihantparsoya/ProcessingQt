@@ -15,8 +15,33 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-from .userspace import *
+from . import processing
 
-from .primitives import *
-from .vertex import *
-from .constants import *
+shapeKind = None
+vertices = []
+isBezier = False
+isCurve = False
+isQuadratic = False
+isContour = False
+
+def beginShape(kind=None):
+	global shapeKind, vertices
+	shapeKind = kind
+	vertices = []
+
+def vertex(x, y):
+	global vertices
+	vertices.append([x, y])
+
+def curveVertex(x, y):
+	global vertices, isCurve
+	isCurve = True
+	vertices.append([x, y])
+
+def endShape(mode=None):
+	global vertices, isCurve, isBezier, isQuadratic, isContour, shapeKind
+	processing.renderer.endShape(mode, vertices, isCurve, isBezier, isQuadratic, isContour, shapeKind)
+	isBezier = False
+	isCurve = False
+	isQuadratic = False
+	isContour = False
