@@ -65,4 +65,14 @@ ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which is
 * shearY()
 * translate()
 
+### Constants
+* CLOSE
+* POINTS
+* LINES
+* TRIANGLES
+* TRIANGLE_FAN
+* TRIANGLE_STRIP
+* QUADS
+* QUAD_STRIP
+
 ### Events
