@@ -11,9 +11,9 @@ ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which ne
 ### Setting
 * background()
 * fill()
-* noFill()
+* [TODO]noFill()
 * stroke()
-* noStroke()
+* [TODO]noStroke()
 
 ### 2D Primitives
 * arc(x, y, w, h, start, stop)
@@ -32,17 +32,17 @@ ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which ne
 * strokeJoin()
 
 ### Curves
-* bezier()
-* curve()
+* [TODO]bezier()
+* [TODO]curve()
 
 ### Vertex
 * beginContour()
 * beginShape()
-* bezierVertex()
-* curveVertex()
+* [TODO]bezierVertex()
+* [TODO]curveVertex()
 * endContour()
 * endShape()
-* quadraticVertex()
+* [TODO]quadraticVertex()
 * vertex()
 
 ### Structure
