@@ -11,9 +11,9 @@ ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which ne
 ### Setting
 * background()
 * fill()
-* [TODO]noFill()
+* noFill()
 * stroke()
-* [TODO]noStroke()
+* noStroke()
 
 ### 2D Primitives
 * arc(x, y, w, h, start, stop)
