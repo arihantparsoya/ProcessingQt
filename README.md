@@ -56,8 +56,8 @@ ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which ne
 * vertex()
 
 ### Transform
-* applyMatrix()
-* resetMatrix()
+* [TODO]applyMatrix()
+* [TODO]resetMatrix()
 * rotate()
 * rotateX()
 * rotateY()
