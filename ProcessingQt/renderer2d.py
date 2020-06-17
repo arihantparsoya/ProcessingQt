@@ -150,83 +150,104 @@ class Renderer2D:
 			vertices.append(vertices[0])
 
 		if isCurve and (shapeKind == POLYGON or shapeKind == None):
-			return 
 			b = []
 			s = 1 - self.curveTightness
 			path = QPainterPath()
-			path.moveTo(vertices[0][0], vertices[0][1])
+			path.moveTo(vertices[1][0], vertices[1][1])
 
-			for i in range(1, len(vertices)):
-				if i + 2 < len(vertices):
-					v = vertices[i]
-					b.append([v[0], v[1]])
-					b.append([
-						v[0] + (s * vertices[i + 1][0] - s * vertices[i - 1][0]) / 6,
-						v[1] + (s * vertices[i + 1][1] - s * vertices[i - 1][1]) / 6
-					])
-					b.append([
-						vertices[i + 1][0] +
-							(s * vertices[i][0] - s * vertices[i + 2][0]) / 6,
-						vertices[i + 1][1] + (s * vertices[i][1] - s * vertices[i + 2][1]) / 6
-					])
-					b.append([vertices[i + 1][0], vertices[i + 1][1]])
-					path.drawCubicBezier(
-						b[1][0],
-						b[1][1],
-						b[2][0],
-						b[2][1],
-						b[3][0],
-						b[3][1]
-					)
+			for i in range(1, len(vertices) - 2):
+				v = vertices[i]
+				b.append([v[0], v[1]])
+				b.append([
+					v[0] + (s * vertices[i + 1][0] - s * vertices[i - 1][0]) / 6,
+					v[1] + (s * vertices[i + 1][1] - s * vertices[i - 1][1]) / 6
+				])
+				b.append([
+					vertices[i + 1][0] +
+						(s * vertices[i][0] - s * vertices[i + 2][0]) / 6,
+					vertices[i + 1][1] + (s * vertices[i][1] - s * vertices[i + 2][1]) / 6
+				])
+				b.append([vertices[i + 1][0], vertices[i + 1][1]])
+				path.cubicTo(
+					b[1][0],
+					b[1][1],
+					b[2][0],
+					b[2][1],
+					b[3][0],
+					b[3][1]
+				)
 
 			if closeShape:
 				path.lineTo(vertices[i + 1][0], vertices[i + 1][1])
 			self.renderPath(path)
 
 		elif isBezier and (shapeKind == POLYGON or shapeKind == None):
-			return
+			path = QPainterPath()
+			path.moveTo(vertices[0][0], vertices[0][1])
+
+			for v in vertices:
+				if len(v) == 2:
+					path.lineTo(v[0], v[1])
+				else:
+					path.cubicTo(
+						v[0],
+						v[1],
+						v[2],
+						v[3],
+						v[4],
+						v[5],
+					)
+			self.renderPath(path)
+
 		elif isQuadratic and (shapeKind == POLYGON or shapeKind == None):
-			return
+			path = QPainterPath()
+			path.moveTo(vertices[0][0], vertices[0][1])
+			for v in vertices:
+				if len(v) == 2:
+					path.lineTo(v[0], v[1])
+				else:
+					path.quadTo(
+						v[0],
+						v[1],
+						v[2],
+						v[3],
+					)
+			self.renderPath(path)
+
 		else:
 			if shapeKind == POINTS:
 				for p in vertices:
 					self.point(p[0], p[1])
 			elif shapeKind == LINES:
-				for i in range(0, len(vertices), 2):
-					if i + 1 < len(vertices):
-						self.line(vertices[i][0], vertices[i][1], vertices[i + 1][0], vertices[i + 1][1])
+				for i in range(0, len(vertices) - 1, 2):
+					self.line(vertices[i][0], vertices[i][1], vertices[i + 1][0], vertices[i + 1][1])
 			elif shapeKind == TRIANGLES:
-				for i in range(0, len(vertices), 3):
-					if i + 2 < len(vertices):
-						self.triangle(vertices[i][0], vertices[i][1], 
-							vertices[i + 1][0], vertices[i + 1][1],
-							vertices[i + 2][0], vertices[i + 2][1])
+				for i in range(0, len(vertices) - 2, 3):
+					self.triangle(vertices[i][0], vertices[i][1], 
+						vertices[i + 1][0], vertices[i + 1][1],
+						vertices[i + 2][0], vertices[i + 2][1])
 			elif shapeKind == TRIANGLE_STRIP:
-				for i in range(len(vertices)):
-					if i + 2 < len(vertices):
-						self.triangle(vertices[i][0], vertices[i][1], 
-							vertices[i + 1][0], vertices[i + 1][1],
-							vertices[i + 2][0], vertices[i + 2][1])
+				for i in range(len(vertices) - 2):
+					self.triangle(vertices[i][0], vertices[i][1], 
+						vertices[i + 1][0], vertices[i + 1][1],
+						vertices[i + 2][0], vertices[i + 2][1])
 			elif shapeKind == TRIANGLE_FAN:
-				for i in range(1, len(vertices)):
-					if i + 1 < len(vertices):
-						self.triangle(vertices[0][0], vertices[0][1], 
-								vertices[i][0], vertices[i][1],
-								vertices[i + 1][0], vertices[i + 1][1])
+				for i in range(1, len(vertices) - 1):
+					self.triangle(vertices[0][0], vertices[0][1], 
+							vertices[i][0], vertices[i][1],
+							vertices[i + 1][0], vertices[i + 1][1])
 			elif shapeKind == QUADS:
-				for i in range(0, len(vertices), 4):
-					if i + 3 < len(vertices):
-						self.quad(vertices[i][0], vertices[i][1], 
-								vertices[i + 1][0], vertices[i + 1][1],
-								vertices[i + 2][0], vertices[i + 2][1],
-								vertices[i + 3][0], vertices[i + 3][1])
+				for i in range(0, len(vertices) - 3, 4):
+					self.quad(vertices[i][0], vertices[i][1], 
+							vertices[i + 1][0], vertices[i + 1][1],
+							vertices[i + 2][0], vertices[i + 2][1],
+							vertices[i + 3][0], vertices[i + 3][1])
 			elif shapeKind == QUAD_STRIP:
-				for i in range(0, len(vertices), 2):
-					if i + 3 < len(vertices):
-						self.quad(vertices[i][0], vertices[i][1], 
-								vertices[i + 1][0], vertices[i + 1][1],
-								vertices[i + 2][0], vertices[i + 2][1],
-								vertices[i + 3][0], vertices[i + 3][1])
+				for i in range(0, len(vertices) - 3, 2):
+					self.quad(vertices[i][0], vertices[i][1], 
+							vertices[i + 1][0], vertices[i + 1][1],
+							vertices[i + 2][0], vertices[i + 2][1],
+							vertices[i + 3][0], vertices[i + 3][1])
 			else:
 				path = QPainterPath()
 				path.moveTo(vertices[0][0], vertices[0][1])

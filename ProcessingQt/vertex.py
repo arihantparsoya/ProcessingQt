@@ -38,6 +38,16 @@ def curveVertex(x, y):
 	isCurve = True
 	vertices.append([x, y])
 
+def quadraticVertex(cx, cy, x3, y3):
+	global vertices, isQuadratic
+	isQuadratic = True
+	vertices.append([cx, cy, x3, y3])
+
+def bezierVertex(x2, y2, x3, y3, x4, y4):
+	global vertices, isBezier
+	isBezier = True
+	vertices.append([x2, y2, x3, y3, x4, y4])
+
 def endShape(mode=None):
 	global vertices, isCurve, isBezier, isQuadratic, isContour, shapeKind
 	processing.renderer.endShape(mode, vertices, isCurve, isBezier, isQuadratic, isContour, shapeKind)
