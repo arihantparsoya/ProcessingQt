@@ -273,16 +273,27 @@ class Renderer2D:
 		self.qp.restore()
 
 	def applyMatrix(self, a, b, c, d, e, f):
-		return
+		self.qp.setWorldTransform([
+				a, c, e,
+				b, d, f,
+				0, 0, 1
+			])
 
 	def resetMatrix(self):
-		return
+		self.qp.setWorldTransform(QMatrix([
+				[1, 0, 0],
+				[0, 1, 0],
+				[0, 0, 1]
+			]))
 
 	def rotate(self, angle):
 		self.qp.rotate(angle)
 
-	def scale(self, s):
-		self.qp.scale(s, x)
+	def scale(self, *args):
+		if len(args) == 1:
+			self.qp.scale(args[0], args[0])
+		elif len(args) == 2:
+			self.qp.scale(args[0], args[1])
 
 	def shearX(self, angle):
 		self.qp.shear(angle, 0)

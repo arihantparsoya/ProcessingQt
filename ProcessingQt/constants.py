@@ -15,6 +15,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
+import math
+
 CLOSE = "CLOSE"
 POINTS = "POINTS"
 LINES = "LINES"
@@ -24,3 +26,11 @@ TRIANGLE_STRIP = "TRIANGLE_STRIP"
 QUADS = "QUADS"
 QUAD_STRIP = "QUAD_STRIP"
 POLYGON = "POLYGON"
+
+TWO_PI = 2 * math.pi
+PI = math.pi
+HALF_PI = math.pi / 2.0
+QUARTER_PI = math.pi / 4.0
+
+TAU = 2 * math.pi
+HALF_TAU = math.pi

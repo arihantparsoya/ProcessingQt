@@ -16,6 +16,7 @@
 #
 
 from . import processing
+import math
 
 def translate(x, y):
 	processing.renderer.translate(x, y)
@@ -26,20 +27,21 @@ def push():
 def pop():
 	processing.renderer.pop()
 
-def applyMatrix(, a, b, c, d, e, f):
-	return
+def applyMatrix(a, b, c, d, e, f):
+	processing.renderer.applyMatrix(a, b, c, d, e, f)
 
 def resetMatrix():
 	return
 
 def rotate(angle):
-	processing.renderer.rotate(angle)
+	processing.renderer.rotate(math.degrees(angle))
 
-def scale(s):
-	processing.renderer.scale(s)
+def scale(*args):
+	processing.renderer.scale(*args)
 
 def shearX(angle):
-	processing.renderer.shearX(angle)
+	processing.renderer.shearX(math.degrees(angle))
 
 def shearY(angle):
-	processing.renderer.shearY(angle)
+	processing.renderer.shearY(math.degrees(angle))
+
