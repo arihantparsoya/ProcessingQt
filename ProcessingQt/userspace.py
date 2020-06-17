@@ -57,6 +57,9 @@ def size(width, height):
 	builtins.height = height
 	processing.canvas.resize(width, height)
 
+def fullScreen():
+	processing.canvas.showFullScreen()
+
 def background(*args):
 	processing.renderer.background(parseColor(*args))
 

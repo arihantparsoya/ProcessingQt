@@ -17,8 +17,10 @@
 
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtGui import QPainter
 
 from .renderer2d import Renderer2D
+from . import processing
 import builtins
 import time
 
@@ -52,12 +54,17 @@ class Canvas(QWidget):
 	def paintEvent(self, e):
 		builtins.frameRate = round(1/(time.perf_counter() - self.elapsedTime), 2)
 		self.elapsedTime = time.perf_counter()
+
 		if not self.setupCompleted:
 			# do the setup
-			self.setupMethod()
 			self.setupCompleted = True
+			processing.renderer.qp.begin(self)
 			builtins.frameCount += 1
+			self.setupMethod()
 		else:
 			# call the draw function
+			processing.renderer.qp.begin(self)
 			builtins.frameCount += 1
 			self.drawMethod()
+
+		processing.renderer.qp.end()

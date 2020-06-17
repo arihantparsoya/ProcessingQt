@@ -22,12 +22,10 @@ from .constants import *
 class Renderer2D:
 	def __init__(self, context):
 		self.ctx = context
-		self.qp = QPainter(self.ctx)
+		self.qp = QPainter()
 
 		# Initiate Properties
 		self.tint = QColor(0, 0, 0)
-		self.isFill = True
-		self.isStroke = True
 		self.isSmooth = True # Antialiasing
 
 		# Stroke Properties
@@ -68,11 +66,11 @@ class Renderer2D:
 		self.brush = color
 
 	def background(self, color):
-		self.qp.begin(self.ctx)
+		#self.qp.begin(self.ctx)
 		self.qp.setPen(QColor(0, 0, 0, 0))
 		self.qp.setBrush(color)
 		self.qp.drawRect(0, 0, self.ctx.size().width(), self.ctx.size().height())
-		self.qp.end()
+		#self.qp.end()
 
 	def point(self, x, y):
 		path = QPainterPath()
@@ -258,12 +256,8 @@ class Renderer2D:
 		return
 
 	def renderPath(self, path):
-		self.qp.begin(self.ctx)
-
-		if self.isStroke:
-			self.qp.setPen(self.pen)
-		if self.isFill:
-			self.qp.setBrush(self.brush)
+		self.qp.setPen(self.pen)
+		self.qp.setBrush(self.brush)
 
 		if self.isSmooth:
 			self.qp.setRenderHint(QPainter.Antialiasing, True)
@@ -271,4 +265,30 @@ class Renderer2D:
 			self.qp.setRenderHint(QPainter.SmoothPixmapTransform, True)
 
 		self.qp.drawPath(path)
-		self.qp.end()
+
+	def push(self):
+		self.qp.save()
+
+	def pop(self):
+		self.qp.restore()
+
+	def applyMatrix(self, a, b, c, d, e, f):
+		return
+
+	def resetMatrix(self):
+		return
+
+	def rotate(self, angle):
+		self.qp.rotate(angle)
+
+	def scale(self, s):
+		self.qp.scale(s, x)
+
+	def shearX(self, angle):
+		self.qp.shear(angle, 0)
+
+	def shearY(self, angle):
+		self.qp.shear(0, angle)
+
+	def translate(self, x, y):
+		self.qp.translate(x, y)

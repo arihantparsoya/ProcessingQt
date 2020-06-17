@@ -15,8 +15,31 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-from .userspace import *
-from .primitives import *
-from .vertex import *
-from .constants import *
-from .transforms import *
+from . import processing
+
+def translate(x, y):
+	processing.renderer.translate(x, y)
+
+def push():
+	processing.renderer.push()
+	
+def pop():
+	processing.renderer.pop()
+
+def applyMatrix(, a, b, c, d, e, f):
+	return
+
+def resetMatrix():
+	return
+
+def rotate(angle):
+	processing.renderer.rotate(angle)
+
+def scale(s):
+	processing.renderer.scale(s)
+
+def shearX(angle):
+	processing.renderer.shearX(angle)
+
+def shearY(angle):
+	processing.renderer.shearY(angle)
