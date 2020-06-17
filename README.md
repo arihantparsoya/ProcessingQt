@@ -38,11 +38,11 @@ ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which ne
 ### Vertex
 * beginContour()
 * beginShape()
-* [TODO]bezierVertex()
-* [TODO]curveVertex()
+* bezierVertex()
+* curveVertex()
 * endContour()
 * endShape()
-* [TODO]quadraticVertex()
+* quadraticVertex()
 * vertex()
 
 ### Structure
@@ -76,3 +76,7 @@ ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which ne
 * QUAD_STRIP
 
 ### Events
+
+### Missing APIs
+* Font
+* Image
