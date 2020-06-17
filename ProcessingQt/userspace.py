@@ -57,8 +57,8 @@ def size(width, height):
 	builtins.height = height
 	processing.canvas.resize(width, height)
 
-def background(r, g, b):
-	processing.renderer.background(QColor(r, b, g))
+def background(*args):
+	processing.renderer.background(parseColor(*args))
 
 def strokeWeight(weight):
 	processing.renderer.strokeWeight(weight)
@@ -72,15 +72,24 @@ def strokeCap(cap):
 def noStroke():
 	processing.renderer.stroke(QColor(0, 0, 0, 0))
 
-def stroke(r, g, b):
-	processing.renderer.stroke(QColor(r, b, g))
+def stroke(*args):
+	processing.renderer.stroke(parseColor(*args))
 
 def noFill():
 	processing.renderer.fill(QColor(0, 0, 0, 0))
 
-def fill(r, g, b):
-	processing.renderer.fill(QColor(r, b, g))
+def fill(*args):
+	processing.renderer.fill(parseColor(*args))
 
-def background(r, g, b):
-	processing.renderer.background(QColor(r, b, g))
+def parseColor(*args):
+	if len(args) == 1:
+		return QColor(args[0], args[0], args[0])
+	elif len(args) == 2:
+		return QColor(args[0], args[0], args[0], args[1])
+	elif len(args) == 3:
+		return QColor(args[0], args[1], args[2])
+	elif len(args) == 4:
+		return QColor(args[0], args[1], args[2], args[3])
+
+	return
 

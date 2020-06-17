@@ -55,3 +55,17 @@ def endShape(mode=None):
 	isCurve = False
 	isQuadratic = False
 	isContour = False
+
+def curve(x1, y1, x2, y2, x3, y3, x4, y4):
+	beginShape()
+	curveVertex(x1, y1)
+	curveVertex(x2, y2)
+	curveVertex(x3, y3)
+	curveVertex(x4, y4)
+	endShape()
+
+def bezier(x1, y1, x2, y2, x3, y3, x4, y4):
+	beginShape()
+	vertex(x1, y1)
+	bezierVertex(x2, y2, x3, y3, x4, y4)
+	endShape()
