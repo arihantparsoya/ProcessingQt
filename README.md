@@ -76,3 +76,7 @@ ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which ne
 * QUAD_STRIP
 
 ### Events
+
+### Missing APIs
+* Font
+* Image
