@@ -150,13 +150,13 @@ class Renderer2D:
 			vertices.append(vertices[0])
 
 		if isCurve and (shapeKind == POLYGON or shapeKind == None):
-			b = []
 			s = 1 - self.curveTightness
 			path = QPainterPath()
 			path.moveTo(vertices[1][0], vertices[1][1])
 
 			for i in range(1, len(vertices) - 2):
 				v = vertices[i]
+				b = []
 				b.append([v[0], v[1]])
 				b.append([
 					v[0] + (s * vertices[i + 1][0] - s * vertices[i - 1][0]) / 6,
