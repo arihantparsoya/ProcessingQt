@@ -8,6 +8,16 @@ ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which ne
 
 ## APIs
 
+### Structure
+* setup()
+* draw()
+* [TODO]noLoop()
+* [TODO]redraw()
+* fullScreen()
+* push()
+* pop()
+
+
 ### Setting
 * background()
 * fill()
@@ -32,8 +42,8 @@ ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which ne
 * strokeJoin()
 
 ### Curves
-* [TODO]bezier()
-* [TODO]curve()
+* bezier()
+* curve()
 
 ### Vertex
 * beginContour()
@@ -44,14 +54,6 @@ ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which ne
 * endShape()
 * quadraticVertex()
 * vertex()
-
-### Structure
-* push()
-* pop()
-* setup()
-* draw()
-* noLoop()
-* redraw()
 
 ### Transform
 * applyMatrix()
