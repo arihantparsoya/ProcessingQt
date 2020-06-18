@@ -31,6 +31,22 @@ builtins.height = 360
 builtins.frameCount = -1
 builtins.frameRate = None
 
+builtins.mouse_button = None
+builtins.mouse_is_pressed = False
+builtins.mouse_is_dragging = False
+builtins.mouse_x = 0
+builtins.mouse_y = 0
+builtins.pmouse_x = 0
+builtins.pmouse_y = 0
+builtins.key = None
+builtins.key_is_pressed = False
+
+def setup():
+	pass 
+
+def run():
+	pass
+
 def run(mode="P2D"):
 	if hasattr(__main__, 'setup'):
 		setup_method = __main__.setup

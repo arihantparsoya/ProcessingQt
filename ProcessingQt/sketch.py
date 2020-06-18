@@ -24,6 +24,11 @@ from . import processing
 import builtins
 import time
 
+handler_names = [ 'key_pressed', 'key_released', 'key_typed',
+                  'mouse_clicked', 'mouse_double_clicked',
+                  'mouse_dragged', 'mouse_moved',
+                  'mouse_pressed', 'mouse_released', 'mouse_wheel',]
+
 class Canvas(QWidget):
 	def __init__(self, setupMethod, drawMethod,
 		frameRate=60):
@@ -47,9 +52,13 @@ class Canvas(QWidget):
 		self.show()
 
 	def keyPressEvent(self, event):
+		print(event.text())
 		# Close the window on ESCAPE
 		if event.key() == Qt.Key_Escape:
 			self.close()
+
+	def keyReleaseEvent(self, event):
+		return
 
 	def paintEvent(self, e):
 		builtins.frameRate = round(1/(time.perf_counter() - self.elapsedTime), 2)
