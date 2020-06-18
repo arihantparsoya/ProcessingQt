@@ -5,7 +5,7 @@ A python library for Processing software.
 ## Installation Steps
 
 * Install Qt: https://www.qt.io/download-qt-installer
-* Install ProcessingQt using pip: pip install ProcessingQt
+* Install ProcessingQt using pip: `pip install ProcessingQt
 
 ## APIs
 
