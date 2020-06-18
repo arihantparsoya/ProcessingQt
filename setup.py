@@ -20,9 +20,13 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+requires = [
+    'PyQt5',
+]
+
 setuptools.setup(
-    name="example-pkg-YOUR-USERNAME-HERE", # Replace with your own username
-    version="0.0.1",
+    name="ProcessingQt", # Replace with your own username
+    version="1.0.0",
     author="Arihant Parsoya",
     author_email="parsoyaarihant@gmail.com",
     description="Python library for Processing software. Built on top of Qt5",
@@ -32,8 +36,18 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: GNU License",
+        'Intended Audience :: Developers',
+        'Intended Audience :: Education',
+
+        'Topic :: Artistic Software',
+        'Topic :: Education',
+
+        'Topic :: Multimedia',
+        'Topic :: Multimedia :: Graphics',
+
+        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
+    install_requires=requires,
 )
