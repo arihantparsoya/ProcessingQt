@@ -2,9 +2,10 @@
 
 A python library for Processing software. 
 
-### Requirements
+## Installation Steps
 
-ProcessingQt is built using PyQt5. PyQt5 is built on top of Qt software which needs to be installed separately. To install PyQt5, refer: https://doc.bccnsoft.com/docs/PyQt5/installation.html.
+* Install Qt: https://www.qt.io/download-qt-installer
+* Install ProcessingQt using pip: pip install ProcessingQt
 
 ## APIs
 
